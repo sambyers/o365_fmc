@@ -1,16 +1,15 @@
 # pull o365 list from internet -> https://support.content.office.net/en-us/static/O365IPAddresses.xml
 # build objects in FMC from list
 import requests
-import xml.etree.ElementTree as et
+from xml.etree import ElementTree
 
 def main():
 
     r = requests.get('https://support.content.office.net/en-us/static/O365IPAddresses.xml')
-    tree = et.fromstring(r.content)
-    root = tree.getroot()
+    tree = ElementTree.fromstring(r.content)
 
-    for product in root:
-        print(product.tag)
+    for element in root:
+        print(element.tag)
         
 if __name__ == "__main__":
     
