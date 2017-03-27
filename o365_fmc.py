@@ -67,7 +67,8 @@ def main():
             print(addr['@type'])
 
             if 'address' in addr:
-                print(addr['address']+"\n")
+                print(addr['address'])
+                print("\n")
 
     #headers = auth_fmc(fmc_server, username, password)
 
