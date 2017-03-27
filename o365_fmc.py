@@ -1,12 +1,8 @@
-# pull o365 list from internet -> https://support.content.office.net/en-us/static/O365IPAddresses.xml
-# build objects in FMC from list
 import requests
 import json
 import sys
 import xmltodict
 import argparse
-
-o365_url = 'https://support.content.office.net/en-us/static/O365IPAddresses.xml'
 
 def get_args():
 
@@ -20,7 +16,12 @@ def get_args():
 
 def get_xml_dict(url):
 
-    r = requests.get(url)
+    try:
+        r = requests.get(url)
+    except Exception as err:
+        print("Error in retrieving the O365 IP list --> "+str(err))
+        sys.exit()
+
     dict = xmltodict.parse(r.content)
     return dict
 
@@ -32,7 +33,7 @@ def auth_fmc(fmc_server, username, password):
     api_auth_path = "/api/fmc_platform/v1/auth/generatetoken"
     auth_url = fmc_server + api_auth_path
     try:
-        # REST call with SSL verification turned off: 
+        # REST call with SSL verification turned off
         r = requests.post(auth_url, headers=headers, auth=requests.auth.HTTPBasicAuth(username,password), verify=False)
         auth_headers = r.headers
         auth_token = auth_headers.get('X-auth-access-token', default=None)
@@ -44,13 +45,22 @@ def auth_fmc(fmc_server, username, password):
         sys.exit()
      
     headers['X-auth-access-token']=auth_token
+    return headers
 
 def main():
-    args = get_args()
-    xml_blob = get_xml_dict(o365_url)
-    fmc_token = auth_fmc(fmc_server)
 
-        
+    args = get_args()
+    fmc_server = args.server
+    username = args.username
+    password = args.password
+    print(fmc_server,username,password)
+
+    o365_url = 'https://support.content.office.net/en-us/static/O365IPAddresses.xml'
+
+    xml_dict = get_xml_dict(o365_url)
+    print(xml_dict)
+    #headers = auth_fmc(fmc_server, username, password)
+
 if __name__ == "__main__":
     
     main()
