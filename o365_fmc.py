@@ -63,7 +63,8 @@ def main():
         print(p['@name'])
 
         for addr in p['addresslist']:
-
+            print("=============================")
+            print(addr)
             print(addr['@type'])
 
             if 'address' in addr:
