@@ -58,9 +58,9 @@ def main():
 
     xml_dict = get_xml_dict(o365_url)
 
-    for p in xml_dict['products']:
+    for p in xml_dict['products']['product']:
 
-        print(p['@name'])
+        #print(p['@name'])
 
         for addr in p['addresslist']:
 
