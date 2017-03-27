@@ -57,12 +57,15 @@ def main():
     o365_url = 'https://support.content.office.net/en-us/static/O365IPAddresses.xml'
 
     xml_dict = get_xml_dict(o365_url)
+    
     for p in xml_dict['products']['product']:
-        print(p)
+
         print(p['@name'])
 
         for addr in p['addresslist']:
+
             print(addr['@type'])
+
             if 'address' in addr:
                 print(addr['address'])
 
