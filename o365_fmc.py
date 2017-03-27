@@ -6,12 +6,11 @@ import xml.etree.ElementTree as et
 def main():
 
     r = requests.get('https://support.content.office.net/en-us/static/O365IPAddresses.xml')
-    xml_blob = r.content
-    tree = et.parse(xml_blob)
+    tree = et.fromstring(r.content)
     root = tree.getroot()
 
     for product in root:
-        print(product)
+        print(product.tag)
         
 if __name__ == "__main__":
     
