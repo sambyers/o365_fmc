@@ -8,7 +8,7 @@ def main():
     r = requests.get('https://support.content.office.net/en-us/static/O365IPAddresses.xml')
     tree = ElementTree.fromstring(r.content)
 
-    for element in root:
+    for element in tree:
         print(element.tag)
         
 if __name__ == "__main__":
