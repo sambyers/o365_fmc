@@ -57,7 +57,7 @@ def main():
     o365_url = 'https://support.content.office.net/en-us/static/O365IPAddresses.xml'
 
     xml_dict = get_xml_dict(o365_url)
-
+    print(xml_dict)
     for p in xml_dict['products']['product']:
 
         print(p['@name'])
