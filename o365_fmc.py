@@ -62,7 +62,8 @@ def main():
 
         for addr in p['addresslist']:
             print(addr['@type'])
-            print(addr['address'])
+            if addr['address']:
+                print(addr['address'])
 
     #headers = auth_fmc(fmc_server, username, password)
 
