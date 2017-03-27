@@ -57,7 +57,8 @@ def main():
     o365_url = 'https://support.content.office.net/en-us/static/O365IPAddresses.xml'
 
     xml_dict = get_xml_dict(o365_url)
-    print(xml_dict['products']['product'][0])
+    for p in xml_dict['products']['product']:
+        print(p)
     #headers = auth_fmc(fmc_server, username, password)
 
 if __name__ == "__main__":
