@@ -50,9 +50,9 @@ def auth_fmc(fmc_server, username, password):
 def main():
 
     args = get_args()
-    fmc_server = args.server
-    username = args.username
-    password = args.password
+    fmc_server = args[0]
+    username = args.[1]
+    password = args.[2]
     print(fmc_server,username,password)
 
     o365_url = 'https://support.content.office.net/en-us/static/O365IPAddresses.xml'
