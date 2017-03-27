@@ -12,7 +12,6 @@ def get_args():
     parser.add_argument('password', type=str, help='Username for FMC.')
 
     args = parser.parse_args()
-    print(args)
     return args
 
 def get_xml_dict(url):
@@ -54,12 +53,11 @@ def main():
     fmc_server = args.server
     username = args.username
     password = args.password
-    print(fmc_server,username,password)
 
     o365_url = 'https://support.content.office.net/en-us/static/O365IPAddresses.xml'
 
     xml_dict = get_xml_dict(o365_url)
-    print(xml_dict)
+    print(xml_dict['products'])
     #headers = auth_fmc(fmc_server, username, password)
 
 if __name__ == "__main__":
