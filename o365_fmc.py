@@ -60,7 +60,7 @@ def main():
 
     for p in xml_dict['products']['product']:
 
-        #print(p['@name'])
+        print(p['@name'])
 
         for addr in p['addresslist']:
 
