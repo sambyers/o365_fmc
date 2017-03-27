@@ -9,7 +9,7 @@ def main():
     tree = ElementTree.fromstring(r.content)
 
     for element in tree:
-        print(element)
+        print(element.attrib)
         
 if __name__ == "__main__":
     
