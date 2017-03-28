@@ -62,8 +62,8 @@ def main():
     for product in xml_dict['products']['product']:
 
         print(product['@name'])
-        print(product['addresslist'])
-        print(product['addresslist'][0])
+        for item in product['addresslist']:
+            print(item)
 
     #headers = auth_fmc(fmc_server, username, password)
 
