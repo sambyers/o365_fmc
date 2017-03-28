@@ -63,9 +63,10 @@ def main():
 
         print(product['@name'])
         for item in product['addresslist']:
-            print(type(item))
             if type(item) is unicode:
-                print(item)
+                print("uString: "+item)
+            if type(item) is dict:
+                print("Dictionary: "+item)
 
     #headers = auth_fmc(fmc_server, username, password)
 
