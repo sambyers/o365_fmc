@@ -67,7 +67,7 @@ def main():
                 print("uString: "+item)
                 print(type(product))
             if type(item) is dict:
-                print(item)
+                print(item['@type'])
 
     #headers = auth_fmc(fmc_server, username, password)
 
