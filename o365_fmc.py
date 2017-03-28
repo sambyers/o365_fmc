@@ -60,12 +60,9 @@ def main():
     # print(xml_dict)
 
     for product in xml_dict['products']['product']:
-
+        print(product)
         print(product['@name'])
         for item in product['addresslist']:
-            if type(item) is unicode:
-                print("uString: "+item)
-                print(type(product))
             if type(item) is dict:
                 print(item['@type'])
 
