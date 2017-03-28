@@ -58,19 +58,15 @@ def main():
 
     xml_dict = get_xml_dict(o365_url)
     print(xml_dict)
-    for p in xml_dict['products']['product']:
 
-        print(p['@name'])
+    for product in xml_dict['products']['product']:
 
-        for addr in p['addresslist']:
+        print(product['@name'])
+
+        for addr in product['addresslist']:
             if 'address' in addr:
-                print("=============================")
-                print(addr)
+                print(type(addr['@type']))
                 print(addr['@type'])
-
-            if 'address' in addr:
-                print(addr['address'])
-                print("\n")
 
     #headers = auth_fmc(fmc_server, username, password)
 
