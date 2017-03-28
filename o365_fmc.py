@@ -60,7 +60,7 @@ def main():
     # print(xml_dict)
 
     for product in xml_dict['products']['product']:
-        print(product['@name'])
+        print(product['@name']+'========================')
         for item in product['addresslist']:
             if type(item) is dict:
                 print(item['@type'])
