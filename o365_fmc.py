@@ -65,6 +65,7 @@ def main():
         for item in product['addresslist']:
             if type(item) is unicode:
                 print("uString: "+item)
+                print(product)
             if type(item) is list:
                 print("List_: ", item)
             if type(item) is dict:
