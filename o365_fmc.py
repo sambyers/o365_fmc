@@ -63,8 +63,7 @@ def main():
 
         print(product['@name'])
         for item in product['addresslist']:
-            if type(item) is dict:
-                print(item)
+            print(type(item))
 
     #headers = auth_fmc(fmc_server, username, password)
 
