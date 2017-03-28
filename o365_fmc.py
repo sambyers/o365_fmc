@@ -57,12 +57,13 @@ def main():
     o365_url = 'https://support.content.office.net/en-us/static/O365IPAddresses.xml'
 
     xml_dict = get_xml_dict(o365_url)
-    print(xml_dict)
+    # print(xml_dict)
 
     for product in xml_dict['products']['product']:
 
         print(product['@name'])
         print(product['addresslist'])
+        print(product['addresslist']['@type'])
 
     #headers = auth_fmc(fmc_server, username, password)
 
