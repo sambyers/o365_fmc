@@ -22,7 +22,7 @@ def get_xml_dict(url):
         print("Error in retrieving the O365 IP list --> "+str(err))
         sys.exit()
 
-    dict = xmltodict.parse(r.content)
+    dict = xmltodict.parse(r.content, dict_constructor=dict)
     return dict
 
 def auth_fmc(fmc_server, username, password):
