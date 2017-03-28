@@ -63,9 +63,6 @@ def main():
 
         print(product['@name'])
 
-        for addr, dict_ in product['addresslist']:
-            print addr, dict_
-
     #headers = auth_fmc(fmc_server, username, password)
 
 
