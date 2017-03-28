@@ -63,10 +63,8 @@ def main():
 
         print(product['@name'])
 
-        for addr in product['addresslist']:
-            if 'address' in addr:
-                print(type(addr['@type']))
-                print(addr['@type'])
+        for addr, dict_ in product['addresslist']:
+            print addr, dict_
 
     #headers = auth_fmc(fmc_server, username, password)
 
