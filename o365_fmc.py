@@ -63,7 +63,7 @@ def main():
 
         print(product['@name'])
         print(product['addresslist'])
-        print(product['addresslist']['@type'])
+        print(product['addresslist'][0])
 
     #headers = auth_fmc(fmc_server, username, password)
 
