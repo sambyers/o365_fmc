@@ -66,7 +66,7 @@ def main():
             if type(item) is unicode:
                 print("uString: "+item)
             if type(item) is dict:
-                print("Dictionary: "+item)
+                print("Dictionary: ", item)
 
     #headers = auth_fmc(fmc_server, username, password)
 
