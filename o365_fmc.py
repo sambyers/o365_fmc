@@ -99,6 +99,7 @@ def main():
                         fmc_data['name'] = 'MS_' + product['@name'] +'_'+ addr.replace('/', '_')
                         fmc_data['value'] = addr
                         print(json.dumps(fmc_data))
+                        network_objs = fmc.create_object('network',fmc_data)
 
     
     # network_objs = fmc.create_object('network',fmc_data)
