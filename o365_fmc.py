@@ -100,7 +100,7 @@ def main():
                             fmc_data['name'] = product['@name'] +'_'+ addr
                             fmc_data['value'] = addr 
 
-    print(fmc_data)
+    print(json.dumps(fmc_data))
     network_objs = fmc.create_object('network',fmc_data)
     print(network_objs)
 
