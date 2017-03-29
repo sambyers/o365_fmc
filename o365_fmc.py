@@ -3,7 +3,9 @@ import json
 import sys
 import xmltodict
 import argparse
-requests.packages.urllib3.disable_warnings()
+# from requests.packages.urllib3.exceptions import InsecureRequestWarning
+
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 class fmc(object):
 
@@ -101,6 +103,7 @@ def main():
 
     fmc_obj = fmc(fmc_server, username, password)
     fmc_headers = fmc_obj.auth()
+    print(fmc_headers)
 
 
 if __name__ == "__main__":
