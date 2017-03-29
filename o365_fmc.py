@@ -4,6 +4,7 @@ import sys
 import xmltodict
 import argparse
 from fireREST import FireREST
+from time import sleep
 
 # from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
@@ -95,6 +96,7 @@ def main():
                 if type(item) is dict:
                     address_type = item['@type']
                 if 'address' in item:
+                    req_num = 0
                     for addr in item['address']:
                         if 'IPv4' in address_type:
                             fmc_data['name'] = 'MS_' + product['@name'] +'_'+ addr.replace('/', '_')
@@ -102,6 +104,9 @@ def main():
                             print(json.dumps(fmc_data))
                             network_objs = fmc.create_object('network',fmc_data)
                             print(network_objs)
+                            req_num += 1
+                        if req_num > 120:
+                            sleep(60)
     
     # network_objs = fmc.create_object('network',fmc_data)
     # print(network_objs)
