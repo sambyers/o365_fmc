@@ -99,7 +99,7 @@ def main():
     #             # print(item['address'])
 
     fmc_obj = fmc(fmc_server, username, password)
-    fmc_headers = fmc.auth()
+    fmc_headers = fmc_obj.auth()
 
 
 if __name__ == "__main__":
