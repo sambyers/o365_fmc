@@ -3,6 +3,7 @@ import json
 import sys
 import xmltodict
 import argparse
+requests.packages.urllib3.disable_warnings()
 
 class fmc(object):
 
@@ -16,6 +17,7 @@ class fmc(object):
         self.username = username
         self.password = password
         self.basic_auth = requests.auth.HTTPBasicAuth(self.username,self.password)
+        self.headers = HEADERS
 
 
     def auth(self):
@@ -23,7 +25,7 @@ class fmc(object):
         self.auth_url = 'https://' + self.fmc_server + self.FMC_AUTH_URL
         try:
             # REST call with SSL verification turned off
-            r = requests.post(self.auth_url, headers=self.HEADERS, auth=self.basic_auth, verify=False)
+            r = requests.post(self.auth_url, headers=self.headers, auth=self.basic_auth, verify=False)
             auth_token = r.headers.get('X-auth-access-token', default=None)
             if auth_token == None:
                 print("auth_token not found. Exiting...")
@@ -32,8 +34,8 @@ class fmc(object):
             print ("Error in generating auth token --> "+str(err))
             sys.exit()
          
-        headers['X-auth-access-token']=auth_token
-        return headers
+        self.headers['X-auth-access-token']=auth_token
+        return self.headers
 
 def get_args():
 
