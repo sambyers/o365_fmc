@@ -4,6 +4,13 @@ import sys
 import xmltodict
 import argparse
 
+FMC_AUTH_URL = '/api/fmc_platform/v1/auth/generatetoken'
+FMC_PLATFORM_REQ_URL = '/api/fmc_platform/v1/'
+FMC_CONFIG_REQ_URL = '/api/fmc_config/v1/'
+
+class fmc(object):
+    pass
+
 def get_args():
 
     parser = argparse.ArgumentParser(description='Get arguments for o365_fmc script.')
