@@ -82,27 +82,25 @@ def main():
     username = args.username
     password = args.password
 
-    # o365_url = 'https://support.content.office.net/en-us/static/O365IPAddresses.xml'
+    o365_url = 'https://support.content.office.net/en-us/static/O365IPAddresses.xml'
 
-    # xml_dict = from_xml_to_dict(o365_url)
-    # # print(xml_dict)
-
-    # for product in xml_dict['products']['product']:
-    #     # print(product['@name']+'========================')
-    #     for item in product['addresslist']:
-    #         if type(item) is dict:
-    #             # print(item['@type'])
-    #         if 'address' in item:
-    #             # print(item['address'])
-
-    # fmc_obj = fmc(fmc_server, username, password)
-    # fmc_headers = fmc_obj.auth()
-    # print(fmc_obj.headers)
-
+    xml_dict = from_xml_to_dict(o365_url)
+    # print(xml_dict)
     fmc = FireREST(fmc_server, username, password)
-    network_objs = fmc.get_objects('network')
-    for obj in network_objs:
-        print(obj.json())
+    fmc_data = {}
+    for product in xml_dict['products']['product']:
+        # print(product['@name']+'========================')
+        for item in product['addresslist']:
+            if type(item) is dict:
+                address_type = item['@type']
+            if 'address' in item:
+                for addr in item['address']:
+                    if 'IPv4' in address_type:
+                        fmc_data['name'] = product['@name'] + address
+                        fmc_data['value'] = addr 
+
+
+    network_objs = fmc.create_object('network',fmc_data)
 
 
 if __name__ == "__main__":
