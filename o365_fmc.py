@@ -82,7 +82,7 @@ def main():
 
     fmc_obj = fmc(fmc_server, username, password)
     fmc_headers = fmc_obj.auth()
-    print(fmc_headers)
+    print(fmc_obj.headers)
 
 
 if __name__ == "__main__":
