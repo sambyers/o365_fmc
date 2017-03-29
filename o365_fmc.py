@@ -23,7 +23,7 @@ class fmc(object):
         self.auth_url = 'https://' + self.fmc_server + self.FMC_AUTH_URL
         try:
             # REST call with SSL verification turned off
-            r = requests.post(auth_url, headers=self.HEADERS, auth=self.basic_auth, verify=False)
+            r = requests.post(self.auth_url, headers=self.HEADERS, auth=self.basic_auth, verify=False)
             auth_token = r.headers.get('X-auth-access-token', default=None)
             if auth_token == None:
                 print("auth_token not found. Exiting...")
