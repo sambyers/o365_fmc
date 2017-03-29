@@ -102,7 +102,7 @@ def main():
 
     print(fmc_data)
     network_objs = fmc.create_object('network',fmc_data)
-
+    print(network_objs)
 
 if __name__ == "__main__":
     main()
