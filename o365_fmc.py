@@ -97,7 +97,7 @@ def main():
                 if 'address' in item:
                     for addr in item['address']:
                         if 'IPv4' in address_type:
-                            fmc_data['name'] = product['@name'] +'_'+ addr
+                            fmc_data['name'] = product['@name'] +'_'+ addr.replace('/', '_')
                             fmc_data['value'] = addr 
 
     print(json.dumps(fmc_data))
