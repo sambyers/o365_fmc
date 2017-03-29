@@ -97,10 +97,11 @@ def main():
                 if 'address' in item:
                     for addr in item['address']:
                         if 'IPv4' in address_type:
-                            fmc_data['name'] = product['@name'] + addr
+                            fmc_data['name'] = product['@name'] +'_'+ addr
                             fmc_data['value'] = addr 
 
     print(fmc_data)
+    fmc_data = json.dumps(fmc_data)
     network_objs = fmc.create_object('network',fmc_data)
 
 
