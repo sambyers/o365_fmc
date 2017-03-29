@@ -101,7 +101,6 @@ def main():
                             fmc_data['value'] = addr 
 
     print(fmc_data)
-    fmc_data = json.dumps(fmc_data)
     network_objs = fmc.create_object('network',fmc_data)
 
 
