@@ -3,41 +3,56 @@ import json
 import sys
 import xmltodict
 import argparse
-from requests.packages.urllib3.exceptions import InsecureRequestWarning
+from fireREST import FireREST
 
-requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+# from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
-class fmc(object):
+# requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+# This is the class I started before I found a wrapper on github
+# class fmc(object):
 
-    fmc_auth_url = '/api/fmc_platform/v1/auth/generatetoken'
-    fmc_platform_url = '/api/fmc_platform/v1/'
-    fmc_config_url = '/api/fmc_config/v1/'
-    headers = {'Content-Type': 'application/json'}
+#     fmc_auth_url = '/api/fmc_platform/v1/auth/generatetoken'
+#     fmc_platform_url = '/api/fmc_platform/v1/'
+#     fmc_config_url = '/api/fmc_config/v1/'
+#     headers = {'Content-Type': 'application/json'}
 
-    def __init__(self, fmc_server=None, username=None, password=None):
-        self.fmc_server = fmc_server
-        self.username = username
-        self.password = password
-        self.basic_auth = requests.auth.HTTPBasicAuth(self.username,self.password)
+#     def __init__(self, fmc_server=None, username=None, password=None, verify_ssl=False):
+#         self.fmc_server = fmc_server
+#         self.username = username
+#         self.password = password
+#         self.basic_auth = requests.auth.HTTPBasicAuth(self.username,self.password)
+#         self.verify_ssl = verify_ssl
 
 
-    def auth(self):
+#     def auth(self):
 
-        self.auth_url = 'https://' + self.fmc_server + self.fmc_auth_url
-        try:
-            # REST call with SSL verification turned off
-            r = requests.post(self.auth_url, headers=self.headers, auth=self.basic_auth, verify=False)
-            auth_token = r.headers.get('X-auth-access-token', default=None)
-            if auth_token == None:
-                print("auth_token not found. Exiting...")
-                sys.exit()
-        except Exception as err:
-            print ("Error in generating auth token --> "+str(err))
-            sys.exit()
-        finally:
-            if r: r.close()
+#         self.auth_url = 'https://' + self.fmc_server + self.fmc_auth_url
+#         try:
+#             # REST call with SSL verification turned off
+#             r = requests.post(self.auth_url, headers=self.headers, auth=self.basic_auth, verify=self.verify_ssl)
+#             auth_token = r.headers.get('X-auth-access-token', default=None)
+#             if auth_token == None:
+#                 print("auth_token not found. Exiting...")
+#                 sys.exit()
+#         except Exception as err:
+#             print ("Error in generating auth token --> "+str(err))
+#             sys.exit()
+#         finally:
+#             if r: r.close()
          
-        self.headers['X-auth-access-token']=auth_token
+#         self.headers['X-auth-access-token']=auth_token
+
+#     def get_request(self, endpoint):
+
+#         url = 'https://' + self.fmc_server + endpoint
+#         data = requests.get(url, self.headers, verify=self.verify_ssl)
+#         data_json = data.json()
+#         pass
+
+#     def get_sys_version(self):
+#         endpoint = 'info/serverversion'
+#         data = get_request(self.fmc_platform_url)
+#         pass
 
 def get_args():
 
@@ -80,9 +95,12 @@ def main():
     #         if 'address' in item:
     #             # print(item['address'])
 
-    fmc_obj = fmc(fmc_server, username, password)
-    fmc_headers = fmc_obj.auth()
-    print(fmc_obj.headers)
+    # fmc_obj = fmc(fmc_server, username, password)
+    # fmc_headers = fmc_obj.auth()
+    # print(fmc_obj.headers)
+
+    fmc = FireREST(fmc_server, username, password)
+    print(fmc.headers)
 
 
 if __name__ == "__main__":
