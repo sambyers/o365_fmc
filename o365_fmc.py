@@ -105,8 +105,9 @@ def main():
                             network_objs = fmc.create_object('network',fmc_data)
                             print(network_objs)
                             req_num += 1
-                        if req_num > 118:
+                        if req_num > 110:
                             sleep(60)
+                            req_num = 0
     
     # network_objs = fmc.create_object('network',fmc_data)
     # print(network_objs)
