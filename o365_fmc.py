@@ -9,10 +9,10 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 class fmc(object):
 
-    FMC_AUTH_URL = '/api/fmc_platform/v1/auth/generatetoken'
-    FMC_PLATFORM_REQ_URL = '/api/fmc_platform/v1/'
-    FMC_CONFIG_REQ_URL = '/api/fmc_config/v1/'
-    HEADERS = {'Content-Type': 'application/json'}
+    fmc_auth_url = '/api/fmc_platform/v1/auth/generatetoken'
+    fmc_platform_url = '/api/fmc_platform/v1/'
+    fmc_config_url = '/api/fmc_config/v1/'
+    headers = {'Content-Type': 'application/json'}
 
     def __init__(self, fmc_server=None, username=None, password=None):
         self.fmc_server = fmc_server
@@ -23,10 +23,10 @@ class fmc(object):
 
     def auth(self):
 
-        self.auth_url = 'https://' + self.fmc_server + self.FMC_AUTH_URL
+        self.auth_url = 'https://' + self.fmc_server + self.fmc_auth_url
         try:
             # REST call with SSL verification turned off
-            r = requests.post(self.auth_url, headers=self.HEADERS, auth=self.basic_auth, verify=False)
+            r = requests.post(self.auth_url, headers=self.headers, auth=self.basic_auth, verify=False)
             auth_token = r.headers.get('X-auth-access-token', default=None)
             if auth_token == None:
                 print("auth_token not found. Exiting...")
@@ -34,9 +34,10 @@ class fmc(object):
         except Exception as err:
             print ("Error in generating auth token --> "+str(err))
             sys.exit()
+        finally:
+            if r: r.close()
          
-        self.HEADERS['X-auth-access-token']=auth_token
-        return self.HEADERS
+        self.headers['X-auth-access-token']=auth_token
 
 def get_args():
 
@@ -48,7 +49,7 @@ def get_args():
     args = parser.parse_args()
     return args
 
-def get_xml_dict(url):
+def from_xml_to_dict(url):
 
     try:
         r = requests.get(url)
@@ -59,28 +60,6 @@ def get_xml_dict(url):
     d = xmltodict.parse(r.content, dict_constructor=dict, force_list={'addresslist': 'address'})
     return d
 
-# def auth_fmc(fmc_server, username, password):
-
-#     fmc_server = 'https://' + fmc_server
-#     r = None
-#     headers = {'Content-Type': 'application/json'}
-#     api_auth_path = "/api/fmc_platform/v1/auth/generatetoken"
-#     auth_url = fmc_server + api_auth_path
-#     try:
-#         # REST call with SSL verification turned off
-#         r = requests.post(auth_url, headers=headers, auth=requests.auth.HTTPBasicAuth(username,password), verify=False)
-#         auth_headers = r.headers
-#         auth_token = auth_headers.get('X-auth-access-token', default=None)
-#         if auth_token == None:
-#             print("auth_token not found. Exiting...")
-#             sys.exit()
-#     except Exception as err:
-#         print ("Error in generating auth token --> "+str(err))
-#         sys.exit()
-     
-#     headers['X-auth-access-token']=auth_token
-#     return headers
-
 def main():
 
     args = get_args()
@@ -90,7 +69,7 @@ def main():
 
     # o365_url = 'https://support.content.office.net/en-us/static/O365IPAddresses.xml'
 
-    # xml_dict = get_xml_dict(o365_url)
+    # xml_dict = from_xml_to_dict(o365_url)
     # # print(xml_dict)
 
     # for product in xml_dict['products']['product']:
