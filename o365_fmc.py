@@ -100,7 +100,7 @@ def main():
     # print(fmc_obj.headers)
 
     fmc = FireREST(fmc_server, username, password)
-    print(fmc.headers)
+    print(fmc.get_system_version())
 
 
 if __name__ == "__main__":
