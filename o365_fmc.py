@@ -90,16 +90,17 @@ def main():
     fmc_data = {}
     for product in xml_dict['products']['product']:
         # print(product['@name']+'========================')
-        for item in product['addresslist']:
-            if type(item) is dict:
-                address_type = item['@type']
-            if 'address' in item:
-                for addr in item['address']:
-                    if 'IPv4' in address_type:
-                        fmc_data['name'] = 'MS_' + product['@name'] +'_'+ addr.replace('/', '_')
-                        fmc_data['value'] = addr
-                        print(json.dumps(fmc_data))
-                        network_objs = fmc.create_object('network',fmc_data)
+        if 'o365' in product['@name']:
+            for item in product['addresslist']:
+                if type(item) is dict:
+                    address_type = item['@type']
+                if 'address' in item:
+                    for addr in item['address']:
+                        if 'IPv4' in address_type:
+                            fmc_data['name'] = 'MS_' + product['@name'] +'_'+ addr.replace('/', '_')
+                            fmc_data['value'] = addr
+                            print(json.dumps(fmc_data))
+                            network_objs = fmc.create_object('network',fmc_data)
 
     
     # network_objs = fmc.create_object('network',fmc_data)

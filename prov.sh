@@ -9,7 +9,3 @@ sudo pip2 install rainbow_logging_handler
 git clone https://github.com/sambyers/o365_fmc /home/ubuntu/o365_fmc
 cd /home/ubuntu/o365_fmc
 sudo git pull
-git clone https://github.com/kaisero/fireREST /home/ubuntu/fireREST
-cd /home/ubuntu/fireREST
-sudo git pull
-cp /home/ubuntu/fireREST/fireREST.py /home/ubuntu/o365_fmc/
