@@ -98,7 +98,8 @@ def main():
     #         if 'address' in item:
     #             # print(item['address'])
 
-    headers = auth_fmc(fmc_server, username, password)
+    fmc_obj = fmc(fmc_server, username, password)
+    fmc_headers = fmc.auth()
 
 
 if __name__ == "__main__":
