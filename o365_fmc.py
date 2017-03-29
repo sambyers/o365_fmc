@@ -100,7 +100,9 @@ def main():
     # print(fmc_obj.headers)
 
     fmc = FireREST(fmc_server, username, password)
-    print(fmc.get_objects('network'))
+    network_objs = fmc.get_objects('network')
+    for obj in network_objs:
+        print(obj.json())
 
 
 if __name__ == "__main__":
