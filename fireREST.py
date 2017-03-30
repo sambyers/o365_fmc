@@ -2,6 +2,7 @@ import json
 import requests
 import sys
 import logging
+from time import sleep
 from rainbow_logging_handler import RainbowLoggingHandler
 
 from requests.auth import HTTPBasicAuth
@@ -20,7 +21,7 @@ HEADERS = {
 
 
 class FireREST(object):
-    def __init__(self, device=None, username=None, password=None, verify_cert=False, timeout=120, loglevel=20):
+    def __init__(self, device=None, username=None, password=None, verify_cert=False, timeout=120, loglevel=20, rate_limit=110):
 
         self.logger = logging.getLogger('FireREST')
         self.logger.setLevel(loglevel)
@@ -45,6 +46,10 @@ class FireREST(object):
             'snmpalert': 'snmpalerts',
             'syslogalert': 'syslogalerts'
         }
+        # This rate limit is set to 110 requests per minute, the FMC API allows 120.
+        # Might want to make them cls attrs, in case multiple instances are made
+        self.rate_limit = rate_limit
+        self.rate_limit_count = 0
 
         try:
             request = requests.post('https://' + self.device + API_AUTH_URL, headers=HEADERS,
@@ -64,6 +69,7 @@ class FireREST(object):
     def _delete(self, request):
         url = 'https://' + self.device + request
         data = requests.delete(url, headers=self.headers, verify=self.verify_cert, timeout=self.timeout)
+        self._rate_limit()
         return data
 
     def _get(self, request, limit=50):
@@ -74,7 +80,9 @@ class FireREST(object):
                 url += '&limit=' + str(limit)
             else:
                 url += '?limit=' + str(limit)
+
         data = requests.get(url, headers=self.headers, verify=self.verify_cert, timeout=self.timeout)
+        self._rate_limit()
         payload = data.json()
         responses.append(data)
         if data.status_code == 200 and 'paging' in payload.keys():
@@ -106,6 +114,13 @@ class FireREST(object):
         data = requests.put(url, data=json.dumps(data), headers=self.headers, verify=self.verify_cert,
                             timeout=self.timeout)
         return data
+
+    def _rate_limit(self):
+        if self.rate_limit_count > self.rate_limit:
+            sleep(60)
+            self.rate_limit_count = 0
+        else:
+            self.rate_limit_count += 1
 
     ######################################################################
     # HELPER FUNCTIONS
