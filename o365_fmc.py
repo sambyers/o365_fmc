@@ -105,6 +105,7 @@ def main():
                             if args.remove:
                                 print('--> Remove option!')
                                 obj_name = fmc_data['name']
+                                print(obj_name)
                                 obj_id = fmc.get_object_id_by_name('network',obj_name)
                                 if obj_id:
                                     print('--> Delete req triggered!')
