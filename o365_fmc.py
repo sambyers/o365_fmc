@@ -102,7 +102,7 @@ def main():
                         if 'IPv4' in address_type or 'IPv6' in address_type:
                             fmc_data['name'] = 'MS_' + product['@name'] +'_'+ addr.replace('/', '_')
                             fmc_data['value'] = addr
-                            if args.r:
+                            if args.remove:
                                 obj_id = fmc.get_object_id_by_name('network',fmc_data['name'])
                                 del_obj = fmc.delete_object('network', obj_id)
                             else:
@@ -110,7 +110,7 @@ def main():
                                 req_num += 1
                         elif 'URL' in address_type:
                             fmc_data['value'] = addr
-                            if args.r:
+                            if args.remove:
                                 pass
                             else:
                                 network_objs = fmc.create_object('url',fmc_data)
