@@ -101,6 +101,7 @@ def main():
                     for addr in item['address']:
                         if 'IPv4' in address_type or 'IPv6' in address_type:
                             fmc_data['name'] = 'MS_' + product['@name'] +'_'+ addr.replace('/', '_')
+                            fmc_data['name'] = fmc_data['name'].replace(':', '.')
                             fmc_data['value'] = addr
                             if args.remove:
                                 print('--> Remove option!')
