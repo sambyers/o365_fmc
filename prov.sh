@@ -1,7 +1,5 @@
-sudo apt-get update -y
-sudo apt-get upgrade -y
-sudo apt-get install python
-sudo apt-get install python-pip
+sudo apt-get update -y && sudo apt-get upgrade -y
+sudo apt-get install python -y && sudo apt-get install python-pip -y
 sudo pip2 install --upgrade pip
 sudo pip2 install requests
 sudo pip2 install xmltodict

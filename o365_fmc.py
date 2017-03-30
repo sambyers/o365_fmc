@@ -99,20 +99,22 @@ def main():
                 if 'address' in item:
                     req_num = 0
                     for addr in item['address']:
-                        if 'IPv4' in address_type:
+                        if 'IPv4' in address_type or 'IPv6' in address_type:
                             fmc_data['name'] = 'MS_' + product['@name'] +'_'+ addr.replace('/', '_')
                             fmc_data['value'] = addr
-                            network_objs = fmc.create_object('network',fmc_data)
-                            req_num += 1
-                        elif 'IPv6' in address_type:
-                            fmc_data['name'] = 'MS_' + product['@name'] +'_'+ addr.replace('/', '_')
-                            fmc_data['value'] = addr
-                            network_objs = fmc.create_object('network',fmc_data)
-                            req_num += 1
+                            if args.r:
+                                obj_id = fmc.get_object_id_by_name('network',fmc_data['name'])
+                                del_obj = fmc.delete_object('network', obj_id)
+                            else:
+                                network_objs = fmc.create_object('network',fmc_data)
+                                req_num += 1
                         elif 'URL' in address_type:
                             fmc_data['value'] = addr
-                            network_objs = fmc.create_object('url',fmc_data)
-                            req_num += 1
+                            if args.r:
+                                pass
+                            else:
+                                network_objs = fmc.create_object('url',fmc_data)
+                                req_num += 1
                         if req_num > 110:
                             sleep(60)
                             req_num = 0
