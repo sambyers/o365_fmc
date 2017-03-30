@@ -104,6 +104,7 @@ class FireREST(object):
     def _post(self, request, data=False):
         url = 'https://' + self.device + request
         if data:
+            print(json.dumps(data))
             data = requests.post(url, data=json.dumps(data), headers=self.headers, verify=self.verify_cert,
                                  timeout=self.timeout)
         else:
@@ -197,7 +198,6 @@ class FireREST(object):
         domain_url = self.get_domain_url(self.get_domain_id(domain))
         obj_type = object_type.lower() + 's'
         request = self.api_config_request_url + domain_url + 'object/' + obj_type
-        print(data)
         response = self._post(request, data)
 
         if response.status_code == 201:
