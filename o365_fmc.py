@@ -104,9 +104,9 @@ def main():
                     net_data = {}
 
                     for addr in item['address']:
-                        print(addr)
                         net_data['value'] = addr
-                        netgroup_data['literals'].append(net_data.copy())
+                        print(net_data)
+                        netgroup_data['literals'].append(net_data)
                     
                     if 'IPv4' in address_type or 'IPv6' in address_type:
                         netgroup_data['name'] = 'MS_' + product['@name'] + '_' + address_type
