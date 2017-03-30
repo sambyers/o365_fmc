@@ -21,4 +21,5 @@ Please use and extend! If you fix or improve smomething, submit a pull request.
 - To run, install vagrant and run the following commands in the directory where you cloned this repo:
   - <code>vagrant up</code>
   - <code>vagrant ssh</code>
+  - <code>cd o365_fmc/</code>
   - <code>o365_fmc.py your_fmc_server username password</code>
