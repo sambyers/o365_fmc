@@ -198,7 +198,7 @@ class FireREST(object):
         obj_type = object_type.lower() + 's'
         request = self.api_config_request_url + domain_url + 'object/' + obj_type
         response = self._post(request, data)
-        print(data)
+
         if response.status_code == 201:
             self.logger.info('Object %s of type %s successfully created' % (data['name'], object_type))
         else:
