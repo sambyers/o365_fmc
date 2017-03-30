@@ -104,6 +104,7 @@ class FireREST(object):
     def _post(self, request, data=False):
         url = 'https://' + self.device + request
         if data:
+            print(data)
             print(json.dumps(data))
             data = requests.post(url, data=json.dumps(data), headers=self.headers, verify=self.verify_cert,
                                  timeout=self.timeout)
