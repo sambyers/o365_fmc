@@ -61,7 +61,7 @@ def get_args():
     parser.add_argument('server', type=str, help='IP or DNS of the FMC Server')
     parser.add_argument('username', type=str, help='Username for FMC.')
     parser.add_argument('password', type=str, help='Username for FMC.')
-    parser.add_argument('-r', action='store_true', help='Remove the O365 objects from FMC.')
+    parser.add_argument('-r', '--remove', action='store_true', help='Remove the O365 objects from FMC instead of adding them.')
 
     args = parser.parse_args()
     return args
@@ -102,9 +102,16 @@ def main():
                         if 'IPv4' in address_type:
                             fmc_data['name'] = 'MS_' + product['@name'] +'_'+ addr.replace('/', '_')
                             fmc_data['value'] = addr
-                            print(json.dumps(fmc_data))
                             network_objs = fmc.create_object('network',fmc_data)
-                            print(network_objs)
+                            req_num += 1
+                        elif 'IPv6' in address_type:
+                            fmc_data['name'] = 'MS_' + product['@name'] +'_'+ addr.replace('/', '_')
+                            fmc_data['value'] = addr
+                            network_objs = fmc.create_object('network',fmc_data)
+                            req_num += 1
+                        elif 'URL' in address_type:
+                            fmc_data['value'] = addr
+                            network_objs = fmc.create_object('url',fmc_data)
                             req_num += 1
                         if req_num > 110:
                             sleep(60)
