@@ -114,7 +114,9 @@ class FireREST(object):
     def get_object_id_by_name(self, object_type, name, domain='Global'):
         domain_url = self.get_domain_url(self.get_domain_id(domain))
         obj_type = object_type.lower() + 's'
-        data = self._get(self.api_config_request_url + domain_url + 'object/%s' % obj_type).json()
+        # data = self._get(self.api_config_request_url + domain_url + 'object/%s' % obj_type).json()
+        data = self._get(self.api_config_request_url + domain_url + 'object/%s' % obj_type)
+        print(data)
         for item in data['items']:
             if item['name'] == name:
                 return item['id']
