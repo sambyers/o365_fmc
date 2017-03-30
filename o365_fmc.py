@@ -4,7 +4,8 @@ import sys
 import xmltodict
 import argparse
 from fireREST import FireREST
-from time import sleep
+from time import sleep, time
+from datetime import date
 
 # from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
@@ -87,45 +88,48 @@ def main():
     o365_url = 'https://support.content.office.net/en-us/static/O365IPAddresses.xml'
 
     xml_dict = from_xml_to_dict(o365_url)
-    # print(xml_dict)
+
     fmc = FireREST(fmc_server, username, password)
-    fmc_data = {}
+    netgroup_data = {}
     for product in xml_dict['products']['product']:
-        # print(product['@name']+'========================')
+        netgroup_data['description'] = 'Generated via the FMC API on ' + date.today().isoformat()
         if 'o365' in product['@name']:
             for item in product['addresslist']:
                 if type(item) is dict:
                     address_type = item['@type']
                 if 'address' in item:
                     req_num = 0
+                    netgroup_data['literals'] = []
+                    net_data = {}
                     for addr in item['address']:
-                        if 'IPv4' in address_type or 'IPv6' in address_type:
-                            fmc_data['name'] = 'MS_' + product['@name'] +'_'+ addr.replace('/', '_')
-                            fmc_data['name'] = fmc_data['name'].replace(':', '.')
-                            fmc_data['value'] = addr
-                            if args.remove:
-                                print('--> Remove option!')
-                                obj_name = fmc_data['name']
-                                print(obj_name)
-                                obj_id = fmc.get_object_id_by_name('network',obj_name)
-                                if obj_id:
-                                    print('--> Delete req triggered!')
-                                    del_obj = fmc.delete_object('network', obj_id)
-                            else:
-                                network_objs = fmc.create_object('network',fmc_data)
-                                req_num += 1
-                        elif 'URL' in address_type:
-                            fmc_data['value'] = addr
-                            if args.remove:
-                                pass
-                            else:
-                                network_objs = fmc.create_object('url',fmc_data)
-                                req_num += 1
+                        net_data['value'] = addr
+                        netgroup_data['literals'].append(net_data)
+                    print(netgroup_data)
+                    sys.exit()
+                    if 'IPv4' in address_type or 'IPv6' in address_type:
+                        netgroup_data['name'] = 'MS_' + product['@name'] +'_'+ addr.replace('/', '_')
+                        netgroup_data['name'] = netgroup_data['name'].replace(':', '.')
+                        # netgroup_data['value'] = addr
+                        if args.remove:
+                            obj_name = netgroup_data['name']
+                            obj_id = fmc.get_object_id_by_name('network',obj_name)
+                            if obj_id:
+                                del_obj = fmc.delete_object('network', obj_id)
+                        else:
+                            network_objs = fmc.create_object('network',netgroup_data)
+                            req_num += 1
+                        # elif 'URL' in address_type:
+                        #     netgroup_data['value'] = addr
+                        #     if args.remove:
+                        #         pass
+                        #     else:
+                        #         network_objs = fmc.create_object('url',netgroup_data)
+                        #         req_num += 1
                         if req_num > 110:
                             sleep(60)
                             req_num = 0
     
-    # network_objs = fmc.create_object('network',fmc_data)
+    # network_objs = fmc.create_object('network',netgroup_data)
     # print(network_objs)
 
 if __name__ == "__main__":
