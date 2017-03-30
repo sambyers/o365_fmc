@@ -117,10 +117,9 @@ class FireREST(object):
         # data = self._get(self.api_config_request_url + domain_url + 'object/%s' % obj_type).json()
         data = self._get(self.api_config_request_url + domain_url + 'object/%s' % obj_type)
         for resp in data:
-            print(resp.content)
-        for item in data['items']:
-            if item['name'] == name:
-                return item['id']
+            for item in resp['items']:
+                if item['name'] == name:
+                    return item['id']
         return None
 
     def get_device_id_by_name(self, name, domain='Global'):
