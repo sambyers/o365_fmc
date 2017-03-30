@@ -6,7 +6,7 @@ Please use and extend! If you fix or improve smomething, submit a pull request.
 <code>usage: o365_fmc.py [-h] server username password</code>
   
 ## Requirements
-- Tested on Python 2.7.12
+- Tested on Python 2.7.12 and FMC 6.2
 - Check out the requirements.txt file for Python libraries required
 - o365 list
   - https://support.content.office.net/en-us/static/O365IPAddresses.xml
