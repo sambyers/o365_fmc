@@ -105,7 +105,8 @@ def main():
                             if args.remove:
                                 obj_name = fmc_data['name']
                                 obj_id = fmc.get_object_id_by_name('network',obj_name)
-                                del_obj = fmc.delete_object('network', obj_id)
+                                if obj_id:
+                                    del_obj = fmc.delete_object('network', obj_id)
                             else:
                                 network_objs = fmc.create_object('network',fmc_data)
                                 req_num += 1
