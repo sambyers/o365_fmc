@@ -120,6 +120,7 @@ class FireREST(object):
             resp = resp.json()
             for item in resp['items']:
                 if item['name'] == name:
+                    print(item['id'])
                     return item['id']
         return None
 
