@@ -103,7 +103,8 @@ def main():
                             fmc_data['name'] = 'MS_' + product['@name'] +'_'+ addr.replace('/', '_')
                             fmc_data['value'] = addr
                             if args.remove:
-                                obj_id = fmc.get_object_id_by_name('network',fmc_data['name'])
+                                obj_name = fmc_data['name']
+                                obj_id = fmc.get_object_id_by_name('network',obj_name)
                                 del_obj = fmc.delete_object('network', obj_id)
                             else:
                                 network_objs = fmc.create_object('network',fmc_data)
