@@ -91,6 +91,7 @@ class FireREST(object):
                 url_with_offset = url + '&offset=' + str(int(i) * int(limit))
                 response_page = requests.get(url_with_offset, headers=self.headers, verify=self.verify_cert,
                                              timeout=self.timeout)
+                self._rate_limit()
                 responses.append(response_page)
         return responses
 
