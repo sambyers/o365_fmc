@@ -14,8 +14,8 @@ Please use and extend! If you fix or improve smomething, submit a pull request.
 - FMC API wrapper called fireREST
   - https://github.com/kaisero/fireREST
   - I started to write my own class for this, but figured I shouldn't reinvent the wheel.
-  - This wrapper works. It's missing a few things, but it has most of what you'd want.
-- Test it using vagrant. There is a vagrantfile included and a privisioning script.
+  - This wrapper works.
+- Test it using vagrant and Ubuntu 16.04. There is a vagrantfile included and a provisioning script.
 
 ## How to run in vagrant
 - To run, install vagrant and run the following commands in the directory where you cloned this repo:
