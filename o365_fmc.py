@@ -106,7 +106,7 @@ def main():
                         netgroup_data['literals'].append(net_data)
                     
                     if 'IPv4' in address_type or 'IPv6' in address_type:
-                        netgroup_data['name'] = 'MS_' + product['@name'] + address_type
+                        netgroup_data['name'] = 'MS_' + product['@name'] + '_' + address_type
                         # netgroup_data['name'] = netgroup_data['name'].replace(':', '.')
                         # netgroup_data['value'] = addr
                         if args.remove:
