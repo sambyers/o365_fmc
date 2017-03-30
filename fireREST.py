@@ -117,6 +117,9 @@ class FireREST(object):
         return data
 
     def _rate_limit(self):
+        '''
+        Added so the methods could be rate limited as the FMC API is limited to 120 calls a minute.
+        '''
         if self.rate_limit_count > self.rate_limit:
             sleep(60)
             self.rate_limit_count = 0

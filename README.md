@@ -1,6 +1,8 @@
 # o365_fmc
 This script adds MS O365 IP's and URL's as objects in the Cisco FirePOWER Management Center.
 
+Please use and extend! If you fix or improve smomething, submit a pull request.
+
 <code>usage: o365_fmc.py [-h] server username password</code>
   
 ## Requirements

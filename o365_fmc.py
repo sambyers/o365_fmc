@@ -10,7 +10,8 @@ from datetime import date
 # from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 # requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
-# This is the class I started before I found a wrapper on github
+# This is the class I started before I found a wrapper on github, fireREST!
+
 # class fmc(object):
 
 #     fmc_auth_url = '/api/fmc_platform/v1/auth/generatetoken'
@@ -68,7 +69,9 @@ def get_args():
     return args
 
 def from_xml_to_dict(url):
-
+    '''
+    Grabs XML from a URL and changes it into a Python dictionary
+    '''
     try:
         r = requests.get(url)
     except Exception as err:
@@ -84,23 +87,27 @@ def main():
     fmc_server = args.server
     username = args.username
     password = args.password
+    remove = args.remove
 
     o365_url = 'https://support.content.office.net/en-us/static/O365IPAddresses.xml'
 
     xml_dict = from_xml_to_dict(o365_url)
 
     fmc = FireREST(fmc_server, username, password)
+
     netgroup_data = {}
+
     for product in xml_dict['products']['product']:
         netgroup_data['description'] = 'Generated via the FMC API on ' + date.today().isoformat()
         # if 'o365' in product['@name']:
         if product['@name']:
             for item in product['addresslist']:
-
+                # Check that the item was changed to  dict from xmltodict. Some of the addresslists get turned into str
+                # More debugging to come for this one
                 if type(item) is dict:
                     address_type = item['@type']
+                # Check for addresses as sometimes the addresslist is present but empty.
                 if 'address' in item:
-                    req_num = 0
                     netgroup_data['literals'] = []
                     
                     for addr in item['address']:
@@ -110,26 +117,23 @@ def main():
                     
                     if 'IPv4' in address_type or 'IPv6' in address_type:
                         netgroup_data['name'] = 'MS_' + product['@name'] + '_' + address_type
-                        # netgroup_data['name'] = netgroup_data['name'].replace(':', '.')
-                        # netgroup_data['value'] = addr
-                        if args.remove:
+
+                        # For if you want to remove the entries, not finished yet
+                        if remove:
                             obj_name = netgroup_data['name']
                             obj_id = fmc.get_object_id_by_name('network',obj_name)
                             if obj_id:
                                 del_obj = fmc.delete_object('network', obj_id)
                         else:
                             network_objs = fmc.create_object('networkgroup',netgroup_data)
-                            req_num += 1
-                        # elif 'URL' in address_type:
-                        #     netgroup_data['value'] = addr
-                        #     if args.remove:
-                        #         pass
-                        #     else:
-                        #         network_objs = fmc.create_object('url',netgroup_data)
-                        #         req_num += 1
-                        if req_num > 110:
-                            sleep(60)
-                            req_num = 0
+
+                    # elif 'URL' in address_type:
+                    #     netgroup_data['value'] = addr
+                    #     if args.remove:
+                    #         pass
+                    #     else:
+                    #         network_objs = fmc.create_object('url',netgroup_data)
+                    #         req_num += 1
     
     # network_objs = fmc.create_object('network',netgroup_data)
     # print(network_objs)
