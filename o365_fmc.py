@@ -115,6 +115,8 @@ def main():
                             if obj_id:
                                 del_obj = fmc.delete_object('network', obj_id)
                         else:
+                            print(netgroup_data)
+                            sys.exit()
                             network_objs = fmc.create_object('networkgroup',netgroup_data)
                             req_num += 1
                         # elif 'URL' in address_type:
