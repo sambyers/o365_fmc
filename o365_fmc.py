@@ -101,11 +101,10 @@ def main():
                 if 'address' in item:
                     req_num = 0
                     netgroup_data['literals'] = []
-                    net_data = {}
-
+                    
                     for addr in item['address']:
+                        net_data = {}
                         net_data['value'] = addr
-                        print(net_data)
                         netgroup_data['literals'].append(net_data)
                     
                     if 'IPv4' in address_type or 'IPv6' in address_type:
