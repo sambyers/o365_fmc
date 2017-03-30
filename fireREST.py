@@ -118,6 +118,7 @@ class FireREST(object):
         data = self._get(self.api_config_request_url + domain_url + 'object/%s' % obj_type)
         for resp in data:
             resp = resp.json()
+            print(resp)
             for item in resp['items']:
                 if item['name'] == name:
                     return item['id']
