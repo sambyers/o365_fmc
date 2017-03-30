@@ -121,6 +121,7 @@ class FireREST(object):
             self.rate_limit_count = 0
         else:
             self.rate_limit_count += 1
+            print(self.rate_limit_count)
 
     ######################################################################
     # HELPER FUNCTIONS
