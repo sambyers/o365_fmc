@@ -61,6 +61,7 @@ def get_args():
     parser.add_argument('server', type=str, help='IP or DNS of the FMC Server')
     parser.add_argument('username', type=str, help='Username for FMC.')
     parser.add_argument('password', type=str, help='Username for FMC.')
+    parser.add_argument('-r', action='store_true', help='Remove the O365 objects from FMC.')
 
     args = parser.parse_args()
     return args
