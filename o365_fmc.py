@@ -93,7 +93,8 @@ def main():
     netgroup_data = {}
     for product in xml_dict['products']['product']:
         netgroup_data['description'] = 'Generated via the FMC API on ' + date.today().isoformat()
-        if 'o365' in product['@name']:
+        # if 'o365' in product['@name']:
+        if product['@name']:
             for item in product['addresslist']:
 
                 if type(item) is dict:
