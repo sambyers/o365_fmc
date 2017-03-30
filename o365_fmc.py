@@ -104,8 +104,7 @@ def main():
                     for addr in item['address']:
                         net_data['value'] = addr
                         netgroup_data['literals'].append(net_data)
-                    print(netgroup_data)
-                    sys.exit()
+                    
                     if 'IPv4' in address_type or 'IPv6' in address_type:
                         netgroup_data['name'] = 'MS_' + product['@name'] +'_'+ addr.replace('/', '_')
                         netgroup_data['name'] = netgroup_data['name'].replace(':', '.')
@@ -116,7 +115,9 @@ def main():
                             if obj_id:
                                 del_obj = fmc.delete_object('network', obj_id)
                         else:
-                            network_objs = fmc.create_object('network',netgroup_data)
+                            print(netgroup_data)
+                            sys.exit()
+                            network_objs = fmc.create_object('networkgroup',netgroup_data)
                             req_num += 1
                         # elif 'URL' in address_type:
                         #     netgroup_data['value'] = addr
