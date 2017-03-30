@@ -89,18 +89,20 @@ def main():
 
     xml_dict = from_xml_to_dict(o365_url)
 
-    fmc = FireREST(fmc_server, username, password)
+    fmc = FireREST(fmc_server, username, password, loglevel=10)
     netgroup_data = {}
     for product in xml_dict['products']['product']:
         netgroup_data['description'] = 'Generated via the FMC API on ' + date.today().isoformat()
         if 'o365' in product['@name']:
             for item in product['addresslist']:
+
                 if type(item) is dict:
                     address_type = item['@type']
                 if 'address' in item:
                     req_num = 0
                     netgroup_data['literals'] = []
                     net_data = {}
+
                     for addr in item['address']:
                         net_data['value'] = addr
                         netgroup_data['literals'].append(net_data)
