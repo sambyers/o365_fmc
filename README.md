@@ -17,9 +17,13 @@ Please use and extend! If you fix or improve smomething, submit a pull request.
   - This wrapper works.
 - Test it using vagrant and Ubuntu 16.04. There is a vagrantfile included and a provisioning script.
 
-## How to run in vagrant
+## How to run with vagrant
+- I'm using vagrant just to bypass potential environment issues, but the script should run ok on most systems.
 - To run, install vagrant and run the following commands in the directory where you cloned this repo:
   - <code>vagrant up</code>
   - <code>vagrant ssh</code>
   - <code>cd o365_fmc/</code>
   - <code>o365_fmc.py your_fmc_server username password</code>
+
+  ## To do
+  - Change to using more of the standard library to limit the amount of library installs and maximize portability and compatibility.
