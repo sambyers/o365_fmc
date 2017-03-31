@@ -4,7 +4,6 @@ import sys
 import xmltodict
 import argparse
 from fireREST import FireREST
-from time import sleep, time
 from datetime import date
 
 def get_args():
