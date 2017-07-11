@@ -19,7 +19,8 @@ Please use and extend! If you fix or improve smomething, submit a pull request.
 
 ## How to run with vagrant
 - I'm using vagrant just to bypass potential environment issues, but the script should run ok on most systems.
-- To run with no hassles, install vagrant, install virual box, and run the following commands in the directory where you cloned this repo:
+- To run with no hassles, install vagrant, install virual box, and run the following commands
+  - wget https://github.com/sambyers/o365_fmc/blob/master/Vagrantfile
   - <code>vagrant up</code>
   - <code>vagrant ssh</code>
   - <code>cd o365_fmc/</code>
