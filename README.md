@@ -24,7 +24,7 @@ Please use and extend! If you fix or improve smomething, submit a pull request.
   - <code>vagrant up</code>
   - <code>vagrant ssh</code>
   - <code>cd o365_fmc/</code>
-  - <code>o365_fmc.py your_fmc_server username password</code>
+  - <code>python o365_fmc.py your_fmc_server username password</code>
 
 ## To do
   - Change to using more of the standard library to limit the amount of library installs and maximize portability and compatibility.
