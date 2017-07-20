@@ -13,7 +13,7 @@ def get_args():
     parser.add_argument('server', type=str, help='IP or DNS of the FMC Server')
     parser.add_argument('username', type=str, help='Username for FMC.')
     parser.add_argument('password', type=str, help='Username for FMC.')
-    parser.add_argument('service', type=str, help='Either o365 or azure service can be selected.')
+    parser.add_argument('service', type=str, help='Either "o365" or "azure" service can be selected.')
     parser.add_argument('-r', '--remove', action='store_true', help='Remove the O365 objects from FMC instead of adding them.')
 
     args = parser.parse_args()
@@ -65,7 +65,7 @@ def main():
         if azure_xml_file:
             azure_url_xml = 'https://download.microsoft.com/download/0/1/8/018E208D-54F8-44CD-AA26-CD7BC9524A8C/%s' % azure_xml_file
             xml_dict = from_xml_to_dict(azure_url_xml)
-            
+
     elif service is 'o365':
         xml_dict = from_xml_to_dict(o365_url)
 
