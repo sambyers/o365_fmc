@@ -135,6 +135,8 @@ def main():
         if azure_xml_file:
             azure_url_xml = 'https://download.microsoft.com/download/0/1/8/018E208D-54F8-44CD-AA26-CD7BC9524A8C/%s' % azure_xml_file
             xml_dict = from_xml_to_dict(azure_url_xml)
+            print(xml_dict)
+            sys.exit()
             azure_addresses_to_fmc(xml_dict)
 
     elif service is 'o365':
