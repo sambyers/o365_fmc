@@ -52,7 +52,7 @@ def fmc_connect(fmc_server, username, password):
     fmc = FireREST(fmc_server, username, password)
     return fmc
 
-def o365_addresses_to_fmc(xml_dict, fmc):
+def o365_addresses_to_fmc(xml_dict, fmc, remove):
 
     netgroup_data = {}
 
@@ -78,15 +78,15 @@ def o365_addresses_to_fmc(xml_dict, fmc):
                         netgroup_data['name'] = 'MS_' + product['@name'] + '_' + address_type
 
                         # For if you want to remove the entries, not finished yet
-                        # if remove:
-                        #     obj_name = netgroup_data['name']
-                        #     obj_id = fmc.get_object_id_by_name('network',obj_name)
-                        #     if obj_id:
-                        #         del_obj = fmc.delete_object('network', obj_id)
-                        # else:
-                        #     network_objs = fmc.create_object('networkgroup',netgroup_data)
+                        if remove:
+                            obj_name = netgroup_data['name']
+                            obj_id = fmc.get_object_id_by_name('network',obj_name)
+                            if obj_id:
+                                del_obj = fmc.delete_object('network', obj_id)
+                        else:
+                            network_objs = fmc.create_object('networkgroup',netgroup_data)
 
-def azure_addresses_to_fmc(xml_dict, fmc):
+def azure_addresses_to_fmc(xml_dict, fmc, remove):
 
     netgroup_data = {}
 
@@ -107,14 +107,14 @@ def azure_addresses_to_fmc(xml_dict, fmc):
                     if 'IPv4' in address_type or 'IPv6' in address_type:
                         netgroup_data['name'] = 'MS_' + product['@name'] + '_' + address_type
 
-                        # For if you want to remove the entries, not finished yet
-                        # if remove:
-                        #     obj_name = netgroup_data['name']
-                        #     obj_id = fmc.get_object_id_by_name('network',obj_name)
-                        #     if obj_id:
-                        #         del_obj = fmc.delete_object('network', obj_id)
-                        # else:
-                        #     network_objs = fmc.create_object('networkgroup',netgroup_data)
+                        #For if you want to remove the entries, not finished yet
+                        if remove:
+                            obj_name = netgroup_data['name']
+                            obj_id = fmc.get_object_id_by_name('network',obj_name)
+                            if obj_id:
+                                del_obj = fmc.delete_object('network', obj_id)
+                        else:
+                            network_objs = fmc.create_object('networkgroup',netgroup_data)
 
 def main():
 
@@ -135,12 +135,12 @@ def main():
             azure_url_xml = 'https://download.microsoft.com/download/0/1/8/018E208D-54F8-44CD-AA26-CD7BC9524A8C/%s' % azure_xml_file
             xml_dict = from_xml_to_dict(azure_url_xml)
             fmc = fmc_connect(fmc_server, username, password)
-            azure_addresses_to_fmc(xml_dict, fmc)
+            azure_addresses_to_fmc(xml_dict, fmc, remove)
 
     elif service.lower() in ['o365']:
         xml_dict = from_xml_to_dict(o365_url)
         fmc = fmc_connect(fmc_server, username, password)
-        o365_addresses_to_fmc(xml_dict, fmc)
+        o365_addresses_to_fmc(xml_dict, fmc, remove)
     
 
 if __name__ == "__main__":
