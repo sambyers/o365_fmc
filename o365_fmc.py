@@ -129,7 +129,7 @@ def main():
     o365_url = 'https://support.content.office.net/en-us/static/O365IPAddresses.xml'
     azure_url = 'https://www.microsoft.com/EN-US/DOWNLOAD/DETAILS.ASPX?ID=41653'
     
-    if service is 'azure':
+    if service.lower() in ['azure']:
         azure_xml_file = get_azure_xml_file(azure_url)
         print azure_xml_file
         if azure_xml_file:
