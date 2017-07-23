@@ -125,7 +125,7 @@ def main():
     password = args.password
     service = args.service
     remove = args.remove
-
+    print service
     o365_url = 'https://support.content.office.net/en-us/static/O365IPAddresses.xml'
     azure_url = 'https://www.microsoft.com/EN-US/DOWNLOAD/DETAILS.ASPX?ID=41653'
     
