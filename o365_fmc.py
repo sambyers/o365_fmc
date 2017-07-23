@@ -47,9 +47,13 @@ def get_azure_xml_file(url):
     else:
         return False
 
-def o365_addresses_to_fmc(xml_dict):
+def fmc_connect(fmc_server, username, password):
 
     fmc = FireREST(fmc_server, username, password)
+    return fmc
+
+def o365_addresses_to_fmc(xml_dict, fmc):
+
     netgroup_data = {}
 
     for product in xml_dict['products']['product']:
@@ -82,28 +86,23 @@ def o365_addresses_to_fmc(xml_dict):
                         else:
                             network_objs = fmc.create_object('networkgroup',netgroup_data)
 
-def azure_addresses_to_fmc(xml_dict):
+def azure_addresses_to_fmc(xml_dict, fmc):
 
-    fmc = FireREST(fmc_server, username, password)
     netgroup_data = {}
 
     for region in xml_dict['AzurePublicIpAddresses']['Region']:
         netgroup_data['description'] = 'Generated via the FMC API on ' + date.today().isoformat()
 
         if region['@name']:
-            for item in region['IpRange']:
-                # Check that the item was changed to  dict from xmltodict. Some of the addresslists get turned into str
-                # More debugging to come for this one
-                if type(item) is dict:
-                    address_type = item['@type']
-                # Check for addresses as sometimes the addresslist is present but empty.
-                if 'Subnet' in item:
+            for subnet in region['IpRange']:
+
+                if subnet['@Subnet']:
                     netgroup_data['literals'] = []
-                    
-                    for addr in item['address']:
-                        net_data = {}
-                        net_data['value'] = addr
-                        netgroup_data['literals'].append(net_data)
+                    addr = subnet['@Subnet']
+                    print addr
+                    net_data = {}
+                    net_data['value'] = addr
+                    netgroup_data['literals'].append(net_data)
                     
                     if 'IPv4' in address_type or 'IPv6' in address_type:
                         netgroup_data['name'] = 'MS_' + product['@name'] + '_' + address_type
@@ -131,17 +130,17 @@ def main():
     
     if service.lower() in ['azure']:
         azure_xml_file = get_azure_xml_file(azure_url)
-        print azure_xml_file
+
         if azure_xml_file:
             azure_url_xml = 'https://download.microsoft.com/download/0/1/8/018E208D-54F8-44CD-AA26-CD7BC9524A8C/%s' % azure_xml_file
             xml_dict = from_xml_to_dict(azure_url_xml)
-            print(xml_dict)
-            sys.exit()
-            azure_addresses_to_fmc(xml_dict)
+            fmc = fmc_connect(fmc_server, username, password)
+            azure_addresses_to_fmc(xml_dict, fmc)
 
-    elif service is 'o365':
+    elif service.lower() in ['o365']:
         xml_dict = from_xml_to_dict(o365_url)
-        o365_addresses_to_fmc(xml_dict)
+        fmc = fmc_connect(fmc_server, username, password)
+        o365_addresses_to_fmc(xml_dict, fmc)
     
 
 if __name__ == "__main__":
