@@ -78,13 +78,13 @@ def o365_addresses_to_fmc(xml_dict, fmc):
                         netgroup_data['name'] = 'MS_' + product['@name'] + '_' + address_type
 
                         # For if you want to remove the entries, not finished yet
-                        if remove:
-                            obj_name = netgroup_data['name']
-                            obj_id = fmc.get_object_id_by_name('network',obj_name)
-                            if obj_id:
-                                del_obj = fmc.delete_object('network', obj_id)
-                        else:
-                            network_objs = fmc.create_object('networkgroup',netgroup_data)
+                        # if remove:
+                        #     obj_name = netgroup_data['name']
+                        #     obj_id = fmc.get_object_id_by_name('network',obj_name)
+                        #     if obj_id:
+                        #         del_obj = fmc.delete_object('network', obj_id)
+                        # else:
+                        #     network_objs = fmc.create_object('networkgroup',netgroup_data)
 
 def azure_addresses_to_fmc(xml_dict, fmc):
 
@@ -108,13 +108,13 @@ def azure_addresses_to_fmc(xml_dict, fmc):
                         netgroup_data['name'] = 'MS_' + product['@name'] + '_' + address_type
 
                         # For if you want to remove the entries, not finished yet
-                        if remove:
-                            obj_name = netgroup_data['name']
-                            obj_id = fmc.get_object_id_by_name('network',obj_name)
-                            if obj_id:
-                                del_obj = fmc.delete_object('network', obj_id)
-                        else:
-                            network_objs = fmc.create_object('networkgroup',netgroup_data)
+                        # if remove:
+                        #     obj_name = netgroup_data['name']
+                        #     obj_id = fmc.get_object_id_by_name('network',obj_name)
+                        #     if obj_id:
+                        #         del_obj = fmc.delete_object('network', obj_id)
+                        # else:
+                        #     network_objs = fmc.create_object('networkgroup',netgroup_data)
 
 def main():
 
