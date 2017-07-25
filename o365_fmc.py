@@ -8,7 +8,9 @@ from datetime import date
 import re
 
 def get_args():
-
+    '''
+    Get args from CLI.
+    '''
     parser = argparse.ArgumentParser(description='Get arguments for o365_fmc script.')
     parser.add_argument('server', type=str, help='IP or DNS of the FMC Server')
     parser.add_argument('username', type=str, help='Username for FMC.')
@@ -33,6 +35,9 @@ def from_xml_to_dict(url):
     return d
 
 def get_azure_xml_file(url):
+    '''
+    Gets XML file from MS download page, since the page doesn't provide a direct link.
+    '''
     try:
         r = requests.get(url)
     except Exception as err:
@@ -48,12 +53,16 @@ def get_azure_xml_file(url):
         return False
 
 def fmc_connect(fmc_server, username, password):
-
+    '''
+    Connects to FMC with the FireREST mobule.
+    '''
     fmc = FireREST(fmc_server, username, password)
     return fmc
 
 def o365_addresses_to_fmc(xml_dict, fmc, remove):
-
+    '''
+    Package and POST addresses from o365 XML>DICT file to FMC.
+    '''
     netgroup_data = {}
 
     for product in xml_dict['products']['product']:
@@ -87,7 +96,9 @@ def o365_addresses_to_fmc(xml_dict, fmc, remove):
                             network_objs = fmc.create_object('networkgroup',netgroup_data)
 
 def azure_addresses_to_fmc(xml_dict, fmc, remove):
-
+    '''
+    Package and POST addresses from Azure XML>DICT file to FMC.
+    '''
     netgroup_data = {}
 
     for region in xml_dict['AzurePublicIpAddresses']['Region']:
@@ -105,7 +116,7 @@ def azure_addresses_to_fmc(xml_dict, fmc, remove):
                     netgroup_data['literals'].append(net_data)
                     
                     if 'IPv4' in address_type or 'IPv6' in address_type:
-                        netgroup_data['name'] = 'MS_' + product['@name'] + '_' + address_type
+                        netgroup_data['name'] = 'MS_' + region['@name'] + '_' + address_type
 
                         #For if you want to remove the entries, not finished yet
                         if remove:
