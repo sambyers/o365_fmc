@@ -104,7 +104,7 @@ def azure_addresses_to_fmc(xml_dict, fmc, remove):
     for region in xml_dict['AzurePublicIpAddresses']['Region']:
         netgroup_data['description'] = 'Generated via the FMC API on ' + date.today().isoformat()
 
-        if region['@name']:
+        if region['@Name']:
             for subnet in region['IpRange']:
 
                 if subnet['@Subnet']:
