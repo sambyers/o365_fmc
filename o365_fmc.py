@@ -103,14 +103,14 @@ def azure_addresses_to_fmc(xml_dict, fmc, remove):
 
     for region in xml_dict['AzurePublicIpAddresses']['Region']:
         netgroup_data['description'] = 'Generated via the FMC API on ' + date.today().isoformat()
-
+        netgroup_data['literals'] = []
+        
         if region['@Name']:
             for subnet in region['IpRange']:
 
                 if subnet['@Subnet']:
-                    netgroup_data['literals'] = []
+                    #netgroup_data['literals'] = []
                     addr = subnet['@Subnet']
-                    print addr
                     net_data = {}
                     net_data['value'] = addr
                     netgroup_data['literals'].append(net_data)
