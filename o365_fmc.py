@@ -116,7 +116,7 @@ def azure_addresses_to_fmc(xml_dict, fmc, remove):
                     netgroup_data['literals'].append(net_data)
                     
                     if 'IPv4' in address_type or 'IPv6' in address_type:
-                        netgroup_data['name'] = 'MS_' + region['@name'] + '_' + address_type
+                        netgroup_data['name'] = 'MS_' + region['@Name'] + '_' + address_type
 
                         #For if you want to remove the entries, not finished yet
                         if remove:
