@@ -14,7 +14,7 @@ def get_args():
     parser = argparse.ArgumentParser(description='Get arguments for o365_fmc script.')
     parser.add_argument('server', type=str, help='IP or DNS of the FMC Server')
     parser.add_argument('username', type=str, help='Username for FMC.')
-    parser.add_argument('password', type=str, help='Username for FMC.')
+    parser.add_argument('password', type=str, help='Password for FMC.')
     parser.add_argument('service', type=str, help='Either "o365" or "azure" service can be selected.')
     parser.add_argument('-r', '--remove', action='store_true', help='Remove the O365 objects from FMC instead of adding them.')
 
@@ -104,7 +104,7 @@ def azure_addresses_to_fmc(xml_dict, fmc, remove):
     for region in xml_dict['AzurePublicIpAddresses']['Region']:
         netgroup_data['description'] = 'Generated via the FMC API on ' + date.today().isoformat()
         netgroup_data['literals'] = []
-        
+
         if region['@Name']:
             for subnet in region['IpRange']:
 
