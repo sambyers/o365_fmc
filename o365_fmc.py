@@ -115,7 +115,7 @@ def azure_addresses_to_fmc(xml_dict, fmc, remove):
                     net_data['value'] = addr
                     netgroup_data['literals'].append(net_data)
                     
-                    netgroup_data['name'] = 'MS_AZURE_' + region['@Name'] + '_' + address_type
+                    netgroup_data['name'] = 'MS_AZURE_' + region['@Name']
 
                     #For if you want to remove the entries, not finished yet
                     if remove:
