@@ -115,17 +115,16 @@ def azure_addresses_to_fmc(xml_dict, fmc, remove):
                     net_data['value'] = addr
                     netgroup_data['literals'].append(net_data)
                     
-                    if 'IPv4' in address_type or 'IPv6' in address_type:
-                        netgroup_data['name'] = 'MS_' + region['@Name'] + '_' + address_type
+                    netgroup_data['name'] = 'MS_AZURE_' + region['@Name'] + '_' + address_type
 
-                        #For if you want to remove the entries, not finished yet
-                        if remove:
-                            obj_name = netgroup_data['name']
-                            obj_id = fmc.get_object_id_by_name('network',obj_name)
-                            if obj_id:
-                                del_obj = fmc.delete_object('network', obj_id)
-                        else:
-                            network_objs = fmc.create_object('networkgroup',netgroup_data)
+                    #For if you want to remove the entries, not finished yet
+                    if remove:
+                        obj_name = netgroup_data['name']
+                        obj_id = fmc.get_object_id_by_name('network',obj_name)
+                        if obj_id:
+                            del_obj = fmc.delete_object('network', obj_id)
+                    else:
+                        network_objs = fmc.create_object('networkgroup',netgroup_data)
 
 def main():
 
