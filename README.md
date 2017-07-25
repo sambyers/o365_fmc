@@ -1,5 +1,5 @@
 # o365_fmc
-This script adds MS O365 IP's and the MS Azure IP's as objects in the Cisco FirePOWER Management Center.
+This script adds MS O365 IP's and the MS Azure IP's as object groups in the Cisco FirePOWER Management Center.
 
 Please use and extend! If you fix or improve smomething, submit a pull request.
 
