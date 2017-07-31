@@ -28,7 +28,7 @@ def from_xml_to_dict(url):
     try:
         r = requests.get(url)
     except Exception as err:
-        print("Error in retrieving the O365 IP list --> "+str(err))
+        print('Error in retrieving the O365 IP list --> '+str(err))
         sys.exit()
 
     d = xmltodict.parse(r.content, dict_constructor=dict, force_list={'addresslist': 'address'})
@@ -41,7 +41,7 @@ def get_azure_xml_file(url):
     try:
         r = requests.get(url)
     except Exception as err:
-        print("Error in retrieving the Azure IP list --> "+str(err))
+        print('Error in retrieving the Azure IP list --> '+str(err))
         sys.exit()
     
     html = r.text
@@ -153,5 +153,5 @@ def main():
         o365_addresses_to_fmc(xml_dict, fmc, remove)
     
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
