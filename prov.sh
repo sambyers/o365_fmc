@@ -6,5 +6,5 @@ sudo pip2 install xmltodict
 sudo pip2 install rainbow_logging_handler
 git clone https://github.com/sambyers/o365_fmc /home/ubuntu/o365_fmc
 cd /home/ubuntu/o365_fmc
-wget https://github.com/sambyers/fireREST/blob/master/fireREST.py
+curl https://raw.githubusercontent.com/sambyers/fireREST/master/fireREST.py > fireREST.py
 sudo git pull
