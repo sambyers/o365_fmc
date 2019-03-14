@@ -33,4 +33,4 @@ You can select 'azure' or 'o365' as the service you'd like to import IP addresse
 
 ## To do
   - Change to using more of the standard library to limit the amount of library installs and maximize portability and compatibility.
-  - Add feature to append new IP's and remove old IP's to/from network groups.
+  - Add feature to append new IP's and remove old IP's to/from network groups. Right now this is a one time run.
